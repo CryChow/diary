@@ -20,7 +20,8 @@ const port = process.env.PORT || config.port
 
 // error handler
 onerror(app)
-
+routes(router)
+console.log(router)
 // middlewares
 app.use(bodyparser())
   .use(json())
@@ -50,7 +51,6 @@ router.get('/', async (ctx, next) => {
   await ctx.render('index', ctx.state)
 })
 
-routes(router)
 app.on('error', function(err, ctx) {
   console.log(err)
   logger.error('server error', err, ctx)
