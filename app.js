@@ -1,7 +1,5 @@
 const Koa = require('koa')
-const Router = require('koa-router')
 const app = new Koa()
-const router = new Router()
 
 const views = require('koa-views')
 const co = require('co')
@@ -14,14 +12,13 @@ const debug = require('debug')('koa2:server')
 const path = require('path')
 
 const config = require('./config')
-const routes = require('./routes')
+const router = require('./routes')
 
 const port = process.env.PORT || config.port
 
 // error handler
 onerror(app)
-routes(router)
-console.log(router)
+
 // middlewares
 app.use(bodyparser())
   .use(json())
