@@ -7,6 +7,7 @@ const EssaySchema = new Schema({
   date: { type: Date, default: Date.now },
   author: String,
   tags: String,
+  password: String,
 }, { collection: 'essay' })
 
 const EssayModel = mongoose.model('Essay', EssaySchema)
