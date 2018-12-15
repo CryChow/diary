@@ -15,10 +15,11 @@ const EssayModel = mongoose.model('Essay', EssaySchema)
 /**
  * 文章数据库操作封装
  * @param {Object} doc
- * @param {String} doc.title
- * @param {String} doc.body
- * @param {String} doc.author
- * @param {String} doc.tags
+ * @param {String} doc.title 标题
+ * @param {String} doc.body 内容主体
+ * @param {String} doc.author 作者
+ * @param {String} doc.tags 标签 ex: 'tag1,tag2,tag3'
+ * @param {String} doc.password 加密文章储存此字段
  * @constructor
  */
 function Essay (doc) {
