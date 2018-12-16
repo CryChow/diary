@@ -26,16 +26,31 @@ function Essay (doc) {
   this.doc = doc
 }
 
-Essay.prototype.insert = function () {
+Essay.prototype.insert = params => {
   return new Promise((resolve, reject) => {
-    if (!this.doc) {
+    // todo 添加验证
+    if (!params) {
       reject(0)
     }
-    const essay = new EssayModel(this.doc)
-    essay.save()
+    const essay = new EssayModel(params)
+    essay
+      .save()
       .then(essay => {
         resolve(essay)
       })
+  })
+}
+
+Essay.prototype.find = params => {
+  return new Promise((resolve, reject) => {
+    EssayModel
+      .find()
+      .then(essays => {
+        resolve(essays)
+      })
+    if (params) {
+      reject()
+    }
   })
 }
 module.exports = Essay

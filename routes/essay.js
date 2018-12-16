@@ -1,9 +1,10 @@
 const Router = require('koa-router')
 const Essay = require('../model/essay')
 
+const essayDoc = new Essay()
 const essayRouter = new Router()
 
-essayRouter.get('/add', async function (ctx) {
+essayRouter.get('/add', async (ctx) => {
   const {
     title,
     body,
@@ -11,18 +12,28 @@ essayRouter.get('/add', async function (ctx) {
     tags,
     password,
   } = ctx.query
-  const essay = new Essay({
+  const data = await essayDoc.insert({
     title,
     body,
     author,
     tags,
     password,
   })
-  essay.insert()
-    .then(res => {
-      console.log(res, 'success')
-    })
-  ctx.body = 'this a users response!'
+  ctx.body = {
+    errno: 0,
+    message: 'success',
+    data,
+  }
 })
 
+essayRouter.get('/search', async ctx => {
+  const list = await essayDoc.find()
+  ctx.body = {
+    errno: 0,
+    message: 'success',
+    data: {
+      list,
+    },
+  }
+})
 module.exports = essayRouter
