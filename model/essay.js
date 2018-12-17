@@ -2,7 +2,10 @@ const mongoose = require('./connect')
 const Schema = mongoose.Schema
 
 const EssaySchema = new Schema({
-  title: String,
+  title: {
+    type: String,
+    required: true,
+  },
   body: String,
   date: { type: Date, default: Date.now },
   author: String,
@@ -37,6 +40,9 @@ Essay.prototype.insert = params => {
       .save()
       .then(essay => {
         resolve(essay)
+      })
+      .catch(err => {
+        reject(err)
       })
   })
 }
