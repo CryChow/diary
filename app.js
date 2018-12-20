@@ -18,39 +18,42 @@ const port = process.env.PORT || config.port
 
 // error handler
 onerror(app)
+const errhandle = async (ctx, next) => {
+  try {
+    await next()
+  } catch (e) {
+    ctx.errno = e.errno || 500
+    ctx.body = {
+      code: e.code || 1,
+      message: e.message || '未知错误',
+      body: null,
+    }
+  }
+}
 
 // middlewares
 app.use(bodyparser())
   .use(json())
+  .use(errhandle)
   .use(logger())
   .use(require('koa-static')(__dirname + '/public'))
   .use(views(path.join(__dirname, '/views'), {
-    options: {settings: {views: path.join(__dirname, 'views')}},
-    map: {'njk': 'nunjucks'},
-    extension: 'njk'
+    options: { settings: { views: path.join(__dirname, 'views') } },
+    map: { 'njk': 'nunjucks' },
+    extension: 'njk',
   }))
   .use(router.routes())
   .use(router.allowedMethods())
 
-// logger
-app.use(async (ctx, next) => {
-  const start = new Date()
-  await next()
-  const ms = new Date() - start
-  console.log(`${ctx.method} ${ctx.url} - $ms`)
-})
-
 router.get('/', async (ctx, next) => {
-  // ctx.body = 'Hello World'
   ctx.state = {
-    title: 'Koa2'
+    title: 'Koa2',
   }
   await ctx.render('index', ctx.state)
 })
 
-app.on('error', function(err, ctx) {
-  console.log(err)
-  logger.error('server error', err, ctx)
+app.on('error', function (err) {
+  console.log('error:', err)
 })
 
 module.exports = app.listen(config.port, () => {
