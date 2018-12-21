@@ -4,7 +4,7 @@ const EssayModel = require('../model/essay')
  * 操作文章collection类
  */
 class Essay {
-  static insert (params) {
+  static insert(params) {
     return new Promise((resolve, reject) => {
       // todo 添加验证
       if (!params) {
@@ -17,16 +17,24 @@ class Essay {
           resolve(essay)
         })
         .catch(err => {
-          reject(err)
+          reject({
+            message: err.message,
+            code: 400,
+            errno: 2,
+          })
         })
     })
   }
-  static async search (params) {
+
+  static async search(params) {
     const { skip, limit } = params
     const essays = await EssayModel
       .find(null, null, {
         skip,
         limit,
+      })
+      .sort({
+        date: 1,
       })
     const count = await EssayModel.countDocuments()
     return new Promise((resolve) => {

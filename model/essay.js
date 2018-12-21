@@ -5,6 +5,8 @@ const EssaySchema = new Schema({
   title: {
     type: String,
     required: true,
+    minLength: 2,
+    maxLength: 20,
   },
   body: {
     type: String,

@@ -1,7 +1,6 @@
 const Router = require('koa-router')
 const Essay = require('../controller/essay')
 
-const essay = new Essay()
 const essayRouter = new Router()
 
 essayRouter.get('/add', async (ctx) => {
@@ -12,18 +11,14 @@ essayRouter.get('/add', async (ctx) => {
     tags,
     password,
   } = ctx.query
-  const data = await essay.insert({
+  const data = await Essay.insert({
     title,
     body,
     author,
     tags,
     password,
   })
-  ctx.body = {
-    errno: 0,
-    message: 'success',
-    data,
-  }
+  ctx.sendSucess(data, '添加文章成功')
 })
 
 essayRouter.get('/search', async (ctx) => {
@@ -38,8 +33,8 @@ essayRouter.get('/search', async (ctx) => {
     limit,
   })
   const pagination = {
-    pageNo,
-    pageSize,
+    pageNo: pageNo || 1,
+    pageSize: pageSize || 10,
     count,
   }
   ctx.sendSucess({

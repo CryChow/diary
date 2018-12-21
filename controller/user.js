@@ -21,6 +21,10 @@ class User {
     })
   }
   static async search (params) {
+    const user = UserModel.findOne(params)
+    return new Promise((resolve => {
+      resolve(user)
+    }))
   }
 }
 
