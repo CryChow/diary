@@ -5,7 +5,7 @@ module.exports = async (ctx, next) => {
     ctx.status = e.code || 500
     ctx.body = {
       errno: e.errno || 1,
-      msg: e.message || '未知错误',
+      message: e.message || '未知错误',
       body: null,
     }
   }
