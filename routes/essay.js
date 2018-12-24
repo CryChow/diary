@@ -10,15 +10,21 @@ essayRouter.get('/add', async (ctx) => {
     author,
     tags,
     password,
+    type,
   } = ctx.query
-  const data = await Essay.insert({
-    title,
-    body,
-    author,
-    tags,
-    password,
-  })
-  ctx.sendSucess(data, '添加文章成功')
+  if (!title || !body || !author) {
+    ctx.sendError(1, '必传参数不能为空！', 400)
+  } else {
+    const data = await Essay.insert({
+      title,
+      body,
+      author,
+      tags,
+      password,
+      type,
+    })
+    ctx.sendSucess(data, '添加文章成功')
+  }
 })
 
 essayRouter.get('/search', async (ctx) => {

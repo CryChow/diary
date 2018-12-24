@@ -6,10 +6,6 @@ const EssayModel = require('../model/essay')
 class Essay {
   static insert(params) {
     return new Promise((resolve, reject) => {
-      // todo 添加验证
-      if (!params) {
-        reject(0)
-      }
       const essayDoc = new EssayModel(params)
       essayDoc
         .save()

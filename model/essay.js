@@ -16,6 +16,10 @@ const EssaySchema = new Schema({
     type: Date,
     default: Date.now
   },
+  type: {
+    type: String,
+    default: 'short', // short & long
+  },
   author: String,
   tags: String,
   password: String,
@@ -24,4 +28,3 @@ const EssaySchema = new Schema({
 const EssayModel = mongoose.model('Essay', EssaySchema)
 
 module.exports = EssayModel
-

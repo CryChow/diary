@@ -10,19 +10,23 @@ userRouter.get('/add', async (ctx) => {
     password,
     color,
   } = ctx.query
-  const user = await User.search({
-    nickname,
-  })
-  if (user) {
-    ctx.sendError(2, '昵称已存在')
+  if (!name || !nickname || !password) {
+    ctx.sendError(1, '必传参数不能为空！', 400)
   } else {
-    const data = await User.insert({
-      name,
+    const user = await User.search({
       nickname,
-      password,
-      color,
     })
-    ctx.sendSucess(data, '添加用户成功')
+    if (user) {
+      ctx.sendError(2, '昵称已存在')
+    } else {
+      const data = await User.insert({
+        name,
+        nickname,
+        password,
+        color,
+      })
+      ctx.sendSucess(data, '添加用户成功')
+    }
   }
 })
 
