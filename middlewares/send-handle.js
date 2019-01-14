@@ -1,8 +1,9 @@
 const sendHandle = () => {
   // 处理请求成功方法
-  const render = ctx => {
+  const sendSucess = ctx => {
     return (data, message) => {
       ctx.set('Content-Type', 'application/json')
+      ctx.set('Access-Control-Allow-Origin', 'http://localhost:8080')
       ctx.body = {
         errno: 0,
         data: data,
@@ -12,7 +13,7 @@ const sendHandle = () => {
   }
 
   // 处理请求失败方法
-  const renderError = ctx => {
+  const sendError = ctx => {
     return (errno, message, code) => {
       ctx.set('Content-Type', 'application/json')
       ctx.status = code || 500
@@ -25,8 +26,8 @@ const sendHandle = () => {
   }
 
   return async (ctx, next) => {
-    ctx.sendSucess = render(ctx)
-    ctx.sendError = renderError(ctx)
+    ctx.sendSucess = sendSucess(ctx)
+    ctx.sendError = sendError(ctx)
     await next()
   }
 }
