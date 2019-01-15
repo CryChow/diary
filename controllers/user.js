@@ -1,4 +1,4 @@
-const UserModel = require('../model/user')
+const UserModel = require('../models/user')
 /**
  * 操作用户collection类
  */

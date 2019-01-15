@@ -1,5 +1,5 @@
 const Router = require('koa-router')
-const Essay = require('../controller/essay')
+const Essay = require('../controllers/essay')
 
 const essayRouter = new Router()
 

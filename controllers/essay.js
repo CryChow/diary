@@ -1,4 +1,4 @@
-const EssayModel = require('../model/essay')
+const EssayModel = require('../models/essay')
 
 /**
  * 操作文章collection类
