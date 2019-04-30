@@ -21,16 +21,11 @@ class Essay {
         })
     })
   }
-
   static async search(params) {
-    const { skip, limit } = params
     const essays = await EssayModel
-      .find(null, null, {
-        skip,
-        limit,
-      })
+      .find(null, 'title author date _id mood', params)
       .sort({
-        date: 1,
+        date: -1,
       })
     const count = await EssayModel.countDocuments()
     return new Promise((resolve) => {
@@ -38,6 +33,13 @@ class Essay {
         list: essays,
         count,
       })
+    })
+  }
+  static async searchOne(params) {
+    const essay = await EssayModel
+      .findOne(params, null, null)
+    return new Promise((resolve) => {
+      resolve(essay)
     })
   }
 }

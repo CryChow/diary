@@ -6,7 +6,7 @@ const sendHandle = () => {
       ctx.set('Access-Control-Allow-Origin', 'http://localhost:8080')
       ctx.body = {
         errno: 0,
-        data: data,
+        data,
         message: message || '请求成功',
       }
     }

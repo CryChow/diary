@@ -5,7 +5,9 @@
   "scripts": {
     "build": "babel app.js -d dist",
     "start": "pm2 start app.js --watch",
-    "stop": "pm2 stop 0"
+    "restart": "pm2 restart app.js --watch",
+    "stop": "pm2 stop 0",
+    "log": "pm2 logs 0"
   },
   "dependencies": {
     "debug": "~2.6.8",

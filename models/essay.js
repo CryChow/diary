@@ -20,6 +20,10 @@ const EssaySchema = new Schema({
     type: String,
     default: 'short', // short & long
   },
+  mood: {
+    type: String,
+    default: 'meh',
+  },
   author: String,
   tags: String,
   password: String,
