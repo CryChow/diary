@@ -37,17 +37,17 @@ app.use(bodyparser())
   .use(router.routes())
   .use(router.allowedMethods())
 
-router.get('*', async function(ctx, next) {
+router.get('/diary/*', async function(ctx, next) {
   const html = fs.readFileSync(path.resolve('./public/index.html'))
   ctx.type = 'html'
   ctx.body = html
 })
-// router.get('/', async (ctx, next) => {
-//   ctx.state = {
-//     title: 'Cry\'s blog',
-//   }
-//   await ctx.render('index', ctx.state)
-// })
+router.get('/', async (ctx, next) => {
+  ctx.state = {
+    title: 'Cry\'s blog',
+  }
+  await ctx.render('index', ctx.state)
+})
 
 app.on('error', function (err) {
   console.log('error:', err)
