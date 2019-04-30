@@ -1,6 +1,6 @@
 const Koa = require('koa')
 const app = new Koa()
-
+const fs = require('fs')
 const views = require('koa-views')
 // const co = require('co')
 // const convert = require('koa-convert')
@@ -37,12 +37,17 @@ app.use(bodyparser())
   .use(router.routes())
   .use(router.allowedMethods())
 
-router.get('/', async (ctx, next) => {
-  ctx.state = {
-    title: 'Koa2',
-  }
-  await ctx.render('index', ctx.state)
+router.get('*', async function(ctx, next) {
+  const html = fs.readFileSync(path.resolve('./public/index.html'))
+  ctx.type = 'html'
+  ctx.body = html
 })
+// router.get('/', async (ctx, next) => {
+//   ctx.state = {
+//     title: 'Cry\'s blog',
+//   }
+//   await ctx.render('index', ctx.state)
+// })
 
 app.on('error', function (err) {
   console.log('error:', err)
