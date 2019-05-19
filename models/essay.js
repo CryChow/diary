@@ -8,7 +8,7 @@ const EssaySchema = new Schema({
     minLength: 2,
     maxLength: 20,
   },
-  body: {
+  content: {
     type: String,
     required: true,
   },

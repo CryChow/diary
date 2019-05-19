@@ -18,7 +18,7 @@ essayRouter.post('/add', async (ctx) => {
   } else {
     const data = await Essay.insert({
       title,
-      body: content,
+      content,
       author,
       tags,
       password,
