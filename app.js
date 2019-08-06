@@ -7,6 +7,8 @@ const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
+const formidable = require('koa2-formidable')
+const koaBody = require('koa-body')
 const logger = require('koa-logger')
 // const debug = require('debug')('koa2:server')
 const path = require('path')
@@ -23,7 +25,15 @@ const port = process.env.PORT || config.port
 onerror(app)
 
 // middlewares
-app.use(bodyparser())
+app
+  // .use(koaBody({
+  //   multipart: true,
+  // }))
+  .use(formidable())
+  .use(bodyparser({
+    jsonLimit: '2048kb', // 控制body的parse转换大小 default 1mb
+    formLimit: '512kb',  //  控制你post的大小  default 56kb
+  }))
   .use(json())
   .use(errorhandle)
   .use(sendhandle())
