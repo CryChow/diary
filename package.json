@@ -24,7 +24,7 @@
     "koa-static": "^3.0.0",
     "koa-views": "^6.0.2",
     "koa2-formidable": "^1.0.2",
-    "mongoose": "^5.3.15",
+    "mongoose": "^5.7.5",
     "nunjucks": "~3.0.0",
     "request": "^2.88.0",
     "upyun": "^3.3.9"
